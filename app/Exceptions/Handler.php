@@ -50,6 +50,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 接口
+        if ($request->is('api/*')) {
+            // 异常类
+            if ($exception  instanceof   \APP\Exceptions\ApiException){
+                $result = [
+                    "code"=>$exception->errorCode,
+                    "msg"    => $exception->errorMsg,
+                ];
+            // JSON_UNESCAPED_UNICODE 不加密文字
+                return response()->json($result,200,[],JSON_UNESCAPED_UNICODE);
+            }
+        }
         return parent::render($request, $exception);
     }
 }

@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// 前台登陆
+Route::prefix('login')->group(function(){
+    Route::any('login', 'Api\LoginControlle@login');               //注册
+    Route::any('imgsum', 'Api\LoginControlle@imgsum');             //图片验证码
+    Route::any('sum', 'Api\LoginControlle@sum');                   //手机验证码
+}); 
